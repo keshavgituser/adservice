@@ -21,12 +21,12 @@ public class Advertisement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long advertiseId;
 	
-	@Size(min=5, max=10,message = "title can be 5 to 10 characters")
+	@Size(min=3, max=10,message = "title can be 5 to 10 characters")
 	@NotBlank(message = "Please Provide a Advertisement title Dont be lazy")
 	@Column(name="ad_titles",unique=true,updatable=false)
 	private String title;
 	
-	@Size(min=2, max=4,message = "identifier can be 5 to 10 characters")
+	@Size(min=5,message = "identifier can be 2 to 5 characters")
 	@NotBlank(message = "Please Provide a Identifier")
 	@Column(name="ad_identifiers",unique = true, updatable = false)
 	private String advertiseIdentifier;
@@ -42,6 +42,32 @@ public class Advertisement {
 	private String availableStock;
 	
 	
+	
+	
+	
+	/**
+	 * @param advertiseId
+	 * @param title
+	 * @param advertiseIdentifier
+	 * @param offerDescription
+	 * @param availableStock
+	 * @param postedBy
+	 */
+	public Advertisement(Long advertiseId,
+			@Size(min = 3, max = 10, message = "title can be 5 to 10 characters") @NotBlank(message = "Please Provide a Advertisement title Dont be lazy") String title,
+			@Size(min = 3,max= 5, message = "identifier can be 2 to 5 characters") @NotBlank(message = "Please Provide a Identifier") String advertiseIdentifier,
+			@Size(min = 5, max = 100, message = "Offer Description can be Big till 100 characters") @NotBlank(message = "Please Provide a Offer Description Give something exciting") String offerDescription,
+			@Size(min = 0, message = "Hello! Available stock should be more than 0 ") @NotBlank(message = "Please Provide available Stock") String availableStock,
+			String postedBy) {
+		super();
+		this.advertiseId = advertiseId;
+		this.title = title;
+		this.advertiseIdentifier = advertiseIdentifier;
+		this.offerDescription = offerDescription;
+		this.availableStock = availableStock;
+		this.postedBy = postedBy;
+	}
+
 	/**
 	 * @param title
 	 * @param advertiseIdentifier

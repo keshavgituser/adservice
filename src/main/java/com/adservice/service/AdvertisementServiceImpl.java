@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.adservice.entity.Advertisement;
 import com.adservice.exception.AdvertisementAlreadyExistException;
@@ -20,6 +21,7 @@ import com.adservice.repository.AdvertisementRepository;
  *
  */
 @Service
+@Transactional
 public class AdvertisementServiceImpl implements AdvertisementService {
 	
 	@Autowired
@@ -50,9 +52,9 @@ public class AdvertisementServiceImpl implements AdvertisementService {
 			throw new NullPointerException("Please Provide Title");
 		}
 		
-		if ((advertisementRepository.findBytitle(title)) == null) {
+		if (advertisementRepository.findBytitle(title) == null) {
 			
-			throw new AdvertisementNotFoundException("User with title : " + title + " does not exists");
+			throw new AdvertisementNotFoundException("Ad with title : " + title + " does not exists");
 		}
 		return advertisementRepository.findBytitle(title);
 		

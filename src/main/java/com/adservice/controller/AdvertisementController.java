@@ -35,6 +35,7 @@ import com.adservice.service.AdvertisementServiceImpl;
  */
 @RestController
 @RequestMapping("/advertisement")
+@CrossOrigin
 public class AdvertisementController {
 	
 	@Autowired
@@ -60,8 +61,10 @@ public class AdvertisementController {
 		try {
 			Advertisement savedAdvertisement = advertisementService.saveAdvertisement(advertisement);
 			return new ResponseEntity<Advertisement>(savedAdvertisement, HttpStatus.CREATED);
+			
 		} catch (Exception e) {
-			throw new AdvertisementAlreadyExistException("Advertisement Already exists! Please Add New Advertisement");
+//"Advertisement Already exists! Please Add New Advertisement"
+			throw new AdvertisementAlreadyExistException(e.getMessage());
 		}	
 	}
 	
@@ -97,14 +100,14 @@ public class AdvertisementController {
 	 * detete mapping
 	 */
 	
-	@DeleteMapping("/advertisement/{advertiseIdentifier}")
+	@DeleteMapping("/{advertiseIdentifier}")
 	
-	public ResponseEntity<?> deleteAdvertisement(@PathVariable Long advertiseIdentifier, HttpSession session){
+	public ResponseEntity<?> deleteAdvertisement(@PathVariable String advertiseIdentifier, HttpSession session){
 		
 		logger.info("Inside Controller Delete Advertisement");
 		
-		advertisementService.deleteAdvertisementById(advertiseIdentifier);
-		return new ResponseEntity<String>("Advertisement Id  " + advertiseIdentifier + " is deleted", HttpStatus.OK);
+		advertisementService.deleteByadvertiseIdentifier(advertiseIdentifier);
+		return new ResponseEntity<String>("Advertisement with Identifier  " + advertiseIdentifier + " is deleted", HttpStatus.OK);
 	}
 	
 	/**
